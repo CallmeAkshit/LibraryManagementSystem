@@ -1,5 +1,7 @@
 package com.management.system.library;
 
+import java.util.UUID;
+
 public class Book {
 	
 	// Fields
@@ -7,8 +9,8 @@ public class Book {
     private String author;
     private String isbn;
     private Integer publicationYear;
-    private Long id;
-    private Integer numberOfCopies;
+    private String id;
+    //private Integer numberOfCopies;
     private Genre genre;
 
     // Enum for Genre
@@ -17,13 +19,13 @@ public class Book {
     }
 
     // Constructor
-    public Book(String title, String author, String isbn, int publicationYear, Long id, int numberOfCopies, Genre genre) {
+    public Book(String title, String author, String isbn, int publicationYear, Genre genre) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.publicationYear = publicationYear;
-        this.id = id;
-        this.numberOfCopies = numberOfCopies;
+        this.id = UUID.randomUUID().toString();
+        //this.numberOfCopies = numberOfCopies;
         this.genre = genre;
     }
 
@@ -60,23 +62,19 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public int getNumberOfCopies() {
-        return numberOfCopies;
-    }
+	public void setPublicationYear(Integer publicationYear) {
+		this.publicationYear = publicationYear;
+	}
 
-    public void setNumberOfCopies(int numberOfCopies) {
-        this.numberOfCopies = numberOfCopies;
-    }
-
-    public Genre getGenre() {
+	public Genre getGenre() {
         return genre;
     }
 

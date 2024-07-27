@@ -47,6 +47,7 @@ public class PatronLendingManager {
 		PatronLibraryDate patronDate= new PatronLibraryDate(issue, null);
 		patronHistory.put(issuedBook, patronDate);
 		patronHistoryMapByLibrary.put(library, patronHistory);
+		issuedBook.setIssued(true);
 		return issuedBook;
 		
 	}
@@ -60,6 +61,7 @@ public class PatronLendingManager {
 		patronDate.setReturnDate(currentDate);
 		patronHistory.put(bookCopy, patronDate);
 		patronHistoryMapByLibrary.put(library, patronHistory);
+		bookCopy.setIssued(false);
 	}
 	
 	

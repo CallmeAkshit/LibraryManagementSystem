@@ -38,6 +38,13 @@ public class Library implements LibraryManager{
 	public void setMembersByStatus(Map<Patron, Integer> membersByStatus) {
 		this.membersByStatus = membersByStatus;
 	}
+	public Library(String branch) {
+		super();
+		this.inventory = new Inventory();
+		this.branch = branch;
+	}
+	
+	
 	
 	
 }

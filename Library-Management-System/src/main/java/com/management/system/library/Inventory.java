@@ -11,6 +11,7 @@ import com.management.system.patron.Patron;
 public class Inventory implements InventoryManager{
 
 	private Long id;
+	Library library;
 	
 	private Map<Book,Set<BookCopy>> bookCopiesByParentBook;
 	
@@ -19,6 +20,7 @@ public class Inventory implements InventoryManager{
 	private Map<String, Book> booksByIsbn;
     private Map<String, List<Book>> booksByTitle;
     private Map<String, List<Book>> booksByAuthor;
+   
 
 	public Long getId() {
 		return id;
@@ -56,9 +58,9 @@ public class Inventory implements InventoryManager{
 				}
 			}
 			
-			//Log out of stock
+			System.out.println("Book not in stock");
 		}else {
-			//Log Book not in library
+			System.out.println("Book : " + book.getTitle() + " does not exist" );
 		}
 		
 		return null;
@@ -74,11 +76,11 @@ public class Inventory implements InventoryManager{
 		Long numExistingCopies = (long) (bookCopiesByParentBook.get(book) == null ? 0 : bookCopiesByParentBook.get(book).size());
 		for(int i=1 ; i<=numExistingCopies; i++) {
 			BookCopy bookCopy = new BookCopy(book.getId(), numExistingCopies+i);
-			if(bookCopiesByParentBook.get(bookCopy) == null) {
+			if(bookCopiesByParentBook.get(book) == null) {
 				List<BookCopy> bookCopies = new ArrayList<>();
 				bookCopies.add(bookCopy);
 			}else {
-				bookCopiesByParentBook.get(bookCopy).add(bookCopy);
+				bookCopiesByParentBook.get(book).add(bookCopy);
 			}
 			
 			bookByPatron.put(bookCopy, null);
@@ -93,7 +95,10 @@ public class Inventory implements InventoryManager{
 	
 	@Override
 	public void removeBook(Book book, BookCopy bookCopy) {
-		bookCopiesByParentBook.get(book).remove(bookCopy);
+		if(!bookCopy.isIssued()) {
+			bookCopiesByParentBook.get(book).remove(bookCopy);
+		}
+		System.out.println("Book cannot be removed, already issued to a patron.");
 		
 	}
 	
@@ -113,10 +118,20 @@ public class Inventory implements InventoryManager{
     }
 	
 
-	public Inventory(Long id, Map<Book, List<BookCopy>> bookCopiesByParentBook, Map<BookCopy, Patron> bookByPatron) {
-		this.id = id;
+	public Inventory() {
+		super();
 		this.bookCopiesByParentBook = new HashMap<>();
 		this.bookByPatron = new HashMap<>();
+	}
+	
+	public Set<BookCopy> getBookCopiesForParentBook(Book book) {
+		Set<BookCopy> bookCopies = bookCopiesByParentBook.get(book);
+		if(bookCopies.size() == 0) {
+			System.out.println("No book copy avaiable for book:" + book.getTitle());
+			return null;
+		}
+		
+		return bookCopies;
 	}
 	
 	

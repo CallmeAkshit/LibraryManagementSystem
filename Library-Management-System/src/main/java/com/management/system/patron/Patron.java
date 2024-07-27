@@ -3,15 +3,13 @@ package com.management.system.patron;
 public class Patron  {
 
     private String name;
-    private int id;
     private String contactNo;
     private String emailId;
     private String occupation;
     private String educationBackground;
 
-    public Patron(String name, int id, String contactNo, String emailId, String occupation, String educationBackground) {
+    public Patron(String name, String contactNo, String emailId, String occupation, String educationBackground) {
         this.name = name;
-        this.id = id;
         this.contactNo = contactNo;
         this.emailId = emailId;
         this.occupation = occupation;
@@ -26,15 +24,7 @@ public class Patron  {
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    
     public String getContactNo() {
         return contactNo;
     }
